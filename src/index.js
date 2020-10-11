@@ -24,9 +24,7 @@ class App extends React.Component {
     );
   }
 
-  // React says we have to define render!!
-  render() {
-    // Avoid include run code as this will run all time
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
@@ -35,6 +33,12 @@ class App extends React.Component {
     }
 
     return <Spinner message="Please accept locaiton request" />;
+  }
+
+  // React says we have to define render!!
+  render() {
+    // Avoid include run code as this will run all time
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 
