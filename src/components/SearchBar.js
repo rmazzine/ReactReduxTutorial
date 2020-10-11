@@ -7,13 +7,15 @@ class SearchBar extends React.Component {
     this.state = { term: '' };
 
     // Needed to the function "know" the context
+    // Or use an arrow function:  funcName = (args) => {}
+    // Or use an arrow function on the component
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onFormSubmit(e) {
     e.preventDefault();
 
-    console.log(this.state.term);
+    this.props.onSubmit(this.state.term);
   }
 
   render() {
