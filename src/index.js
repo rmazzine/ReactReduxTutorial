@@ -2,13 +2,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import SeasonDisplay from './SeasonDisplay';
+
 class App extends React.Component {
   constructor(props) {
     super(props); // Because we override the constructor class by extending, then it must get the parent props
 
     // This is the only time we do direct assignment
     this.state = { lat: null, errorMessage: '' };
+  }
 
+  // Same thing to initialize the state
+  // state = { lat: null, errorMessage: '' };
+
+  componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       // To change state, always use setState!!
       (position) => this.setState({ lat: position.coords.latitude }),
@@ -23,7 +30,7 @@ class App extends React.Component {
       return <div>Error: {this.state.errorMessage}</div>;
     }
     if (!this.state.errorMessage && this.state.lat) {
-      return <div>latitude: {this.state.lat}</div>;
+      return <SeasonDisplay lat={this.state.lat} />;
     }
 
     return <div>Loading!</div>;
