@@ -7,19 +7,26 @@ class App extends React.Component {
     super(props); // Because we override the constructor class by extending, then it must get the parent props
 
     // This is the only time we do direct assignment
-    this.state = { lat: null };
+    this.state = { lat: null, errorMessage: '' };
 
     window.navigator.geolocation.getCurrentPosition(
       // To change state, always use setState!!
       (position) => this.setState({ lat: position.coords.latitude }),
-      (err) => console.log(err)
+      (err) => this.setState({ errorMessage: err.message })
     );
   }
 
   // React says we have to define render!!
   render() {
     // Avoid include run code as this will run all time
-    return <div>Latitude: {this.state.lat}</div>;
+    if (this.state.errorMessage && !this.state.lat) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+    if (!this.state.errorMessage && this.state.lat) {
+      return <div>latitude: {this.state.lat}</div>;
+    }
+
+    return <div>Loading!</div>;
   }
 }
 
